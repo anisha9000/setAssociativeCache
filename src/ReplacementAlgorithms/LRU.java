@@ -9,6 +9,6 @@ package ReplacementAlgorithms;
  *
  * @author anisha
  */
-public interface ReplacementAlgorithm {
+public class LRU implements ReplacementAlgorithm {
     
 }
