@@ -5,10 +5,15 @@
  */
 package ReplacementAlgorithms;
 
+import nsetcache.CacheSet;
+import nsetcache.SetElement;
+
 /**
  *
  * @author anisha
  */
 public interface ReplacementAlgorithm {
+    public void replace(CacheSet cacheSet, SetElement newElement);
     
+    public void update(CacheSet cacheSet, SetElement newElement);
 }

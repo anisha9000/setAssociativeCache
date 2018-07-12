@@ -8,6 +8,7 @@ package nsetcache;
 import ReplacementAlgorithms.LRU;
 import ReplacementAlgorithms.ReplacementAlgorithm;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,7 +20,9 @@ public class Nsetcache implements Cache{
     private final int n;
     private final int setCount;
     private final ReplacementAlgorithm replacementAlgo;
-    private List<CacheSet> sets;
+    private List<CacheSet> cacheSets;
+    
+    // TODO make the cache thread safe
     
     public Nsetcache() {
         this(1,1,new LRU());
@@ -33,7 +36,8 @@ public class Nsetcache implements Cache{
         this.n = n;
         this.setCount = setCount;
         this.replacementAlgo = replacementAlgo;
-        sets = new ArrayList<>(setCount);
+        cacheSets = new ArrayList<>(setCount);
+        initiateCache();
     }
     
     /**
@@ -51,6 +55,16 @@ public class Nsetcache implements Cache{
     @Override
     public Object get(Object key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void initiateCache() {
+        for(int i = 0; i<setCount; i++) {
+            cacheSets.add(new CacheSet(n, replacementAlgo));
+        }
+    }
+    
+    public void invalidateCache() {
+        cacheSets.clear();
     }
     
 }

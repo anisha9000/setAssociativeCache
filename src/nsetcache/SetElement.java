@@ -12,5 +12,29 @@ package nsetcache;
 public class SetElement {
     Object key;
     Object value;
-    Object timestamp;
+    long timestamp;
+    
+    public SetElement(Object key, Object value) {
+        this.key = key;
+        this.value = value;
+        // TODO settimestamp here
+        
+    }
+    
+    public Object getKey() {
+        return key;
+    }
+    
+    public Object getValue() {
+        return value;
+    }
+    
+    public long getTimeStamp() {
+        return timestamp;
+    }
+    
+    public void setValue(Object value) {
+        this.value = value;
+        //TODO update timestamp here too
+    }
 }
