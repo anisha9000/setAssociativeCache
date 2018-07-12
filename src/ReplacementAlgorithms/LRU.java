@@ -16,11 +16,15 @@ import nsetcache.SetElement;
  */
 public class LRU implements ReplacementAlgorithm {
     
-    int cacheMissCount;
+    static int cacheMissCount;
 
+    /**
+     * if the cache is full, replace the oldest entry with the new one
+     * @param cacheSet
+     * @param newElement 
+     */
     @Override
     public void replace(CacheSet cacheSet, SetElement newElement) {
-        // TODO keep track of cache miss to understand if the replacement algorithm suits the current scenario
         HashMap<Object, SetElement> cacheStore = cacheSet.getCacheStoreMap();
         LinkedList<SetElement> cacheQueue = cacheSet.getCacheStoreQueue();
         
@@ -33,8 +37,16 @@ public class LRU implements ReplacementAlgorithm {
         cacheQueue.addFirst(newElement);
         cacheStore.put(newElement.getKey(), newElement);
         
+        cacheMissCount++;
+        // Send to a log file for analytics
+        System.out.println("Cache miss for data:"+ newElement.getValue().toString());
     }
 
+    /**
+     * if the cache contains the element, update the content
+     * @param cacheSet
+     * @param newElement 
+     */
     @Override
     public void update(CacheSet cacheSet, SetElement newElement) {
         HashMap<Object, SetElement> cacheStore = cacheSet.getCacheStoreMap();
@@ -44,13 +56,21 @@ public class LRU implements ReplacementAlgorithm {
         SetElement elementToUpdate = cacheStore.get(newElement.getKey());
         
         // update key
-        
         elementToUpdate.setValue(newElement.getValue());
         
-        // put element to first
+        // put element to begining of the queue
         cacheQueue.remove(elementToUpdate);
         cacheQueue.addFirst(elementToUpdate);
         
+    }
+    
+    /**
+     * Return the number of cachemiss till now. This is more for 
+     * performance evaluation of the current algorithm
+     * @return 
+     */
+    public int getMissCount() {
+        return cacheMissCount;
     }
     
 }
