@@ -42,12 +42,27 @@ public class Nsetcache implements Cache{
     
     @Override
     public boolean put(Object key, Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(key == null) {
+            return false;
+        }
+        //TODO make hashcode custom?
+        int setIndex = getSetIndex(key);
+        if(cacheSets.get(setIndex).isSpace()) {
+            cacheSets.get(setIndex).put(key, value);
+        } 
+        // TODO try the next avaialble set where the data can be stored
+        return false;
     }
 
     @Override
     public Object get(Object key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(key == null) {
+            return false;
+        }
+        int setIndex = getSetIndex(key);
+        Object value = cacheSets.get(setIndex).get(key);
+        //TODO if value == null, fecth from memory and put it in cache
+        return value;
     }
 
     private void initiateCache() {
@@ -56,8 +71,16 @@ public class Nsetcache implements Cache{
         }
     }
     
+    //TODO schedule to be called every custom time window
     public void invalidateCache() {
         cacheSets.clear();
+    }
+    
+    private int getSetIndex(Object key) {
+        if(key == null) {
+            return -1;
+        }
+        return Math.abs(key.hashCode()) % setCount;
     }
     
 }
