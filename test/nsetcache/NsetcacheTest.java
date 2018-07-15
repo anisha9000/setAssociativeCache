@@ -66,17 +66,6 @@ public class NsetcacheTest {
         
     }
 
-    /**
-     * Test of invalidateCache method, of class Nsetcache.
-     */
-    @Test
-    public void testInvalidateCache() {
-        System.out.println("invalidateCache");
-        Nsetcache instance = new Nsetcache();
-        instance.invalidateCache();
-        
-    }
-    
     @Test
     public void testCachePut() {
         Nsetcache instance = new Nsetcache(2,2);
