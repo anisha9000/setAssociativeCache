@@ -13,7 +13,7 @@ import nsetcache.Nsetcache;
  */
 public class Client {
     public static void main(String[] args) {
-        Nsetcache clientCache = new Nsetcache(2,2);
+        Nsetcache clientCache = new Nsetcache(2,2, new CustomReplacementAlgorithm());
         clientCache.put("December", "Capricorn");
         clientCache.put("November", "Saggitarius");
         clientCache.put("November", "Scorpio");

@@ -19,7 +19,7 @@ public class MRU implements ReplacementAlgorithm {
     static int cacheMissCount;
 
     /**
-     * if the cache is full, replace the oldest entry with the new one
+     * if the cache is full, replace the latest entry with the new one
      * @param cacheSet
      * @param newElement 
      */

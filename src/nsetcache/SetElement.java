@@ -6,7 +6,7 @@
 package nsetcache;
 
 /**
- *
+ * The data bundle saved in the cache
  * @author anisha
  */
 public class SetElement {
@@ -14,11 +14,15 @@ public class SetElement {
     Object value;
     long timestamp;
     
+    /**
+     * Constructor
+     * @param key
+     * @param value 
+     */
     public SetElement(Object key, Object value) {
         this.key = key;
         this.value = value;
-        // TODO settimestamp here
-        
+        timestamp = System.currentTimeMillis();        
     }
     
     public Object getKey() {
@@ -35,6 +39,6 @@ public class SetElement {
     
     public void setValue(Object value) {
         this.value = value;
-        //TODO update timestamp here too
+        timestamp = System.currentTimeMillis();
     }
 }

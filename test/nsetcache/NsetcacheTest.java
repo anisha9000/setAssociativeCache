@@ -84,13 +84,15 @@ public class NsetcacheTest {
         result = instance.put(1, "value1");
         assertEquals(true, result);
         result = instance.put(3, "value2");
+        Object valuePut = instance.get(3);
         assertEquals(true, result);
+        assertEquals("value2", valuePut);
         result = instance.put(5, "value3");
-        assertEquals(false, result);
+        assertEquals(true, result);
     }
     
     @Test
-    public void testCacheReplace() {
+    public void testCacheUpdate() {
         Nsetcache instance = new Nsetcache(2,2);
         boolean result;
         result = instance.put(1, "value1");
@@ -112,6 +114,24 @@ public class NsetcacheTest {
         assertEquals("value1", getValue);
         getValue = instance.get(2);
         assertEquals(null, getValue);
+    }
+    
+    @Test
+    public void testCacheReplace() {
+        Nsetcache instance = new Nsetcache(2,2);
+        boolean result;
+        result = instance.put(1, "value1");
+        assertEquals(true, result);
+        result = instance.put(3, "value2");
+        assertEquals(true, result);
+        result = instance.put(5, "value3");
+        assertEquals(true, result);
+        Object updatedValue = instance.get(1);
+        assertEquals(null, updatedValue);
+        updatedValue = instance.get(3);
+        assertEquals( "value2", updatedValue);
+        updatedValue = instance.get(5);
+        assertEquals( "value3", updatedValue);
     }
     
 }
