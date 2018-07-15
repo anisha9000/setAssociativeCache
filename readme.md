@@ -14,7 +14,13 @@ To setup and run the framework,
 2. Build:
 	a) Run make to build and generate the class files
 	b) Run make jar to create JAR files
-3. The executable Jar files will be created in the build directory: Cache.jar
+3. The executable Jar files will be created in the build directory: Client.jar
+
+### Running
+The client jar can be run as:
+```
+java -jar Client.jar n=<number of blocks in a set> setcount=<no. of sets> algo=<lru/mru/custom>
+```
 
 ### Usage
 

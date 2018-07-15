@@ -9,17 +9,16 @@ MKDIR_P = mkdir -p
 	$(JC) $(JFLAGS) $(CLASSPATH) $*.java
 
 CLASSES = \
-        ./nsetcache/*.java \
-        ./ReplacementAlgorithms/*.java \
         ./Client/*.java \
+        ./ReplacementAlgorithms/*.java \
+        ./nsetcache/*.java
         
 default: classes
 
 classes: $(CLASSES:.java=.class)
 
 jar: $(CLASSES:.java=.class)
-	jar cvfe ../build/Cache.jar -C $(CLASSPATH) ReplacementAlgorithms -C $(CLASSPATH) nsetcache 
-	jar cvfe ../build/Client.jar Client.Client -C $(CLASSPATH) Client 
+	jar cvfe ../build/Client.jar Client.Client -C $(CLASSPATH) Client -C $(CLASSPATH) nsetcache -C $(CLASSPATH) ReplacementAlgorithms 
 	
 clean:
 	rm -rf $(CLASSPATH)
