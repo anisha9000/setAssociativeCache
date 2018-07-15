@@ -15,23 +15,22 @@ import java.util.List;
  *
  * @author anisha
  */
-public class Nsetcache implements Cache{
-    
+public class Nsetcache implements Cache {
+
     private final int n;
     private final int setCount;
     private final ReplacementAlgorithm replacementAlgo;
     private List<CacheSet> cacheSets;
-    
+
     // TODO make the cache thread safe
-    
     public Nsetcache() {
-        this(1,1,new LRU());
+        this(1, 1, new LRU());
     }
-    
+
     public Nsetcache(int n, int setCount) {
         this(n, setCount, new LRU());
     }
-    
+
     public Nsetcache(int n, int setCount, ReplacementAlgorithm replacementAlgo) {
         this.n = n;
         this.setCount = setCount;
@@ -39,24 +38,30 @@ public class Nsetcache implements Cache{
         cacheSets = new ArrayList<>(setCount);
         initiateCache();
     }
-    
+
     @Override
     public boolean put(Object key, Object value) {
-        if(key == null) {
+        if (key == null) {
             return false;
         }
         //TODO make hashcode custom?
         int setIndex = getSetIndex(key);
-        if(cacheSets.get(setIndex).isSpace()) {
+        // check if the key is already present. If yes, then update the entry
+        Object currValue = get(key);
+        if (currValue != null) {
             cacheSets.get(setIndex).put(key, value);
-        } 
+            return true;
+        } else if (cacheSets.get(setIndex).isSpace()) {
+            cacheSets.get(setIndex).put(key, value);
+            return true;
+        }
         // TODO try the next avaialble set where the data can be stored
         return false;
     }
 
     @Override
     public Object get(Object key) {
-        if(key == null) {
+        if (key == null) {
             return false;
         }
         int setIndex = getSetIndex(key);
@@ -66,21 +71,21 @@ public class Nsetcache implements Cache{
     }
 
     private void initiateCache() {
-        for(int i = 0; i<setCount; i++) {
+        for (int i = 0; i < setCount; i++) {
             cacheSets.add(new CacheSet(n, replacementAlgo));
         }
     }
-    
+
     //TODO schedule to be called every custom time window
     public void invalidateCache() {
         cacheSets.clear();
     }
-    
+
     private int getSetIndex(Object key) {
-        if(key == null) {
+        if (key == null) {
             return -1;
         }
         return Math.abs(key.hashCode()) % setCount;
     }
-    
+
 }
