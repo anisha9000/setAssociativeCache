@@ -1,0 +1,5 @@
+<map id="ReplacementAlgorithms.ReplacementAlgorithm" name="ReplacementAlgorithms.ReplacementAlgorithm">
+<area shape="rect" id="node2" href="$classClient_1_1CustomReplacementAlgorithm.html" title="Custom replacement algorithm implementation goes here. " alt="" coords="303,5,485,47"/>
+<area shape="rect" id="node3" href="$classReplacementAlgorithms_1_1LRU.html" title="Lest recently used replacement algorithm. " alt="" coords="298,71,490,98"/>
+<area shape="rect" id="node4" href="$classReplacementAlgorithms_1_1MRU.html" title="Most recently used replacement algorithm. " alt="" coords="296,122,492,149"/>
+</map>
